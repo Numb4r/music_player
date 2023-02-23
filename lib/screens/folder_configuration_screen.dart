@@ -11,7 +11,8 @@ class FolderConfigurationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> listFolders = context.watch<Profile>().folders.toList();
-    return TemplateMenu(
+    // List<String> listFolders = context.watch<Profile>().music;
+    return Scaffold(
       appBar: AppBar(
         title: const Text("Pastas"),
         actions: [
@@ -33,18 +34,19 @@ class FolderConfigurationScreen extends StatelessWidget {
             )
           : Center(
               child: ListView.builder(
-                  itemCount: listFolders.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(listFolders[index]),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.cancel),
-                        onPressed: () {
-                          context.read<Profile>().removeMediaFolder(index);
-                        },
-                      ),
-                    );
-                  }),
+                itemCount: listFolders.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(listFolders[index]),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.cancel),
+                      onPressed: () {
+                        context.read<Profile>().removeMediaFolder(index);
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
     );
   }
