@@ -5,8 +5,8 @@ import 'package:media_player/models/profile.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 
-class FolderConfigurationScrren extends StatelessWidget {
-  const FolderConfigurationScrren({super.key});
+class FolderConfigurationScreen extends StatelessWidget {
+  const FolderConfigurationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
