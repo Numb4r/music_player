@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
 
 class Profile extends ChangeNotifier {
@@ -7,6 +8,7 @@ class Profile extends ChangeNotifier {
   var _box;
 
   Set<String> folders = {};
+  List<String> music = [];
   bool isDarkMode = false;
 
   factory Profile() {
@@ -22,10 +24,30 @@ class Profile extends ChangeNotifier {
     }
   }
 
+  fetchAllMedia() {
+    for (var path in folders) {
+      fetchMediaByFolder(path, notify: false);
+    }
+    notifyListeners();
+  }
+
+  fetchMediaByFolder(String folder, {notify = true}) {
+    var dir = Directory(folder);
+    List content = dir.listSync(recursive: true);
+    for (var file in content) {
+      if (file is! File) {
+        music.add(file.path);
+        if (notify) {
+          notifyListeners();
+        }
+      }
+    }
+  }
+
   addMediaFolder(String folder) {
     folders.add(folder);
     _box.put("folders", folders);
-    notifyListeners();
+    fetchMediaByFolder(folder);
   }
 
   removeMediaFolder(int index) {
