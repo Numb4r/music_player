@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:media_player/controllers/route_manager.dart';
 import 'package:media_player/models/profile.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,9 @@ class ConfigurationScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text("Gerenciar pastas"),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(RouteManager.folderManagerPage);
+              },
             )
           ],
         ),
