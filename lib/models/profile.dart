@@ -35,12 +35,12 @@ class Profile extends ChangeNotifier {
     var dir = Directory(folder);
     List content = dir.listSync(recursive: true);
     for (var file in content) {
-      if (file is! File) {
+      if (file is File) {
         music.add(file.path);
-        if (notify) {
-          notifyListeners();
-        }
       }
+    }
+    if (notify) {
+      notifyListeners();
     }
   }
 
