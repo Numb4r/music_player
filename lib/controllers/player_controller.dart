@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:media_player/controllers/playlist_manager.dart';
+import 'package:media_player/models/music.dart';
+
+import 'package:media_player/models/playlist.dart';
 
 enum statusPlayer { PLAY, STOP, PAUSED }
 
-class MusicController extends ChangeNotifier {
-  static final MusicController _instance = MusicController._internal();
+class PlayerController extends ChangeNotifier {
+  static final PlayerController _instance = PlayerController._internal();
   late AudioPlayer _audioPlayer;
   late statusPlayer status = statusPlayer.PAUSED;
-  late ConcatenatingAudioSource playlist =
+  Playlist currentPaylist = Playlist();
+  ConcatenatingAudioSource currentSource =
       ConcatenatingAudioSource(children: []);
 
   // TODO: salvar metodo shuffle no profile
 
-  MusicController._internal() {
+  PlayerController._internal() {
     _audioPlayer = AudioPlayer();
-    _audioPlayer.setAudioSource(playlist);
-    //TODO: fetch previous playlist
-    // playlist = ConcatenatingAudioSource(children: []);
+
+    // TODO: fetch previous currentPlaylist
+    // currentSource = ConcatenatingAudioSource(children: []);
+    _audioPlayer.setAudioSource(currentSource);
   }
 
-  factory MusicController() {
+  factory PlayerController() {
     return _instance;
   }
 
@@ -33,15 +38,17 @@ class MusicController extends ChangeNotifier {
     notifyListeners();
   }
 
-  addToPlaylist(String file) {
-    playlist.add(AudioSource.file(file));
+  addToPlaylist(Music music) {
+    currentPaylist.musics.add(music);
+    currentSource.add(AudioSource.file(music.path));
+    notifyListeners();
   }
 
   loadPlaylistSaved(int index) {
     // stop();
-    playlist = PlaylistManager().getPlaylistByIndex(index);
-    _audioPlayer.setAudioSource(playlist,
-        initialIndex: 0, initialPosition: Duration.zero);
+    // currentPlaylist = PlaylistManager().getPlaylistByIndex(index);
+    // _audioPlayer.setAudioSource(currentPlaylist,
+    //     initialIndex: 0, initialPosition: Duration.zero);
   }
 
   setUniqueFile(String file) {

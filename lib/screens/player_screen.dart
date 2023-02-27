@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:media_player/controllers/music_controller.dart';
+import 'package:media_player/controllers/player_controller.dart';
 import 'package:provider/provider.dart';
 
 class PlayerScreen extends StatelessWidget {
@@ -7,19 +7,19 @@ class PlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var status = context.watch<MusicController>().status;
+    var status = context.watch<PlayerController>().status;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         IconButton(
             onPressed: () {
-              context.read<MusicController>().previousMusic();
+              context.read<PlayerController>().previousMusic();
             },
             icon: Icon(Icons.arrow_back)),
         IconButton(
           onPressed: () {
-            context.read<MusicController>().changeStatus();
+            context.read<PlayerController>().changeStatus();
           },
           icon: status == statusPlayer.PAUSED
               ? Icon(Icons.play_arrow)
@@ -27,7 +27,7 @@ class PlayerScreen extends StatelessWidget {
         ),
         IconButton(
             onPressed: () {
-              context.read<MusicController>().nextMusic();
+              context.read<PlayerController>().nextMusic();
             },
             icon: Icon(Icons.arrow_forward)),
       ],

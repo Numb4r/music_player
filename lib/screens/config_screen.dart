@@ -8,32 +8,30 @@ class ConfigurationScreen extends StatelessWidget {
   const ConfigurationScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = context.watch<Profile>().isDarkMode;
-    return Scaffold(
-      body: Center(
-        child: ListView(
-          children: [
-            ListTile(
-              title: const Text("Dark Mode"),
-              trailing: Switch(
-                value: isDarkMode,
-                onChanged: (_) => {
-                  context.read<Profile>().changeDarkMode(),
-                  if (isDarkMode)
-                    {AdaptiveTheme.of(context).setLight()}
-                  else
-                    {AdaptiveTheme.of(context).setDark()},
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text("Gerenciar pastas"),
-              onTap: () {
-                Navigator.of(context).pushNamed(RouteManager.folderManagerPage);
+    // bool isDarkMode = ;
+    return Center(
+      child: ListView(
+        children: [
+          ListTile(
+            title: const Text("Dark Mode"),
+            trailing: Switch(
+              value: !context.watch<Profile>().isDarkMode,
+              onChanged: (value) => {
+                context.read<Profile>().changeDarkMode(),
+                if (value)
+                  {AdaptiveTheme.of(context).setLight()}
+                else
+                  {AdaptiveTheme.of(context).setDark()},
               },
-            )
-          ],
-        ),
+            ),
+          ),
+          ListTile(
+            title: const Text("Gerenciar pastas"),
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteManager.folderManagerPage);
+            },
+          )
+        ],
       ),
     );
   }

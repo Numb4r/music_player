@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:media_player/controllers/music_manager.dart';
 
-import 'package:media_player/fragments/template_menu.dart';
 import 'package:media_player/models/profile.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ class FolderConfigurationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> listFolders = context.watch<Profile>().folders.toList();
+    List<String> listFolders = context.watch<MusicManager>().paths.toList();
     // List<String> listFolders = context.watch<Profile>().music;
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +22,7 @@ class FolderConfigurationScreen extends StatelessWidget {
                     await FilePicker.platform.getDirectoryPath();
 
                 if (selectedDirectory != null) {
-                  context.read<Profile>().addMediaFolder(selectedDirectory);
+                  MusicManager().addFolder(selectedDirectory);
                 }
               },
               icon: const Icon(Icons.abc))
@@ -41,7 +41,7 @@ class FolderConfigurationScreen extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.cancel),
                       onPressed: () {
-                        context.read<Profile>().removeMediaFolder(index);
+                        context.read<MusicManager>().removeFolderByIndex(index);
                       },
                     ),
                   );

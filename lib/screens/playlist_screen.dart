@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:media_player/controllers/music_controller.dart';
+import 'package:media_player/controllers/player_controller.dart';
 import 'package:media_player/models/profile.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ class PlaylistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var playlist = context.watch<MusicController>().playlist.children;
+    var playlist = context.watch<PlayerController>().currentPaylist.musics;
 
     // var playlist = context.watch<Profile>().music;
     return playlist.isEmpty
@@ -20,7 +20,7 @@ class PlaylistScreen extends StatelessWidget {
               itemCount: playlist.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(index.toString()),
+                  title: Text(playlist[index].name),
                   onTap: () {},
                 );
               },

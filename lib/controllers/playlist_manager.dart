@@ -15,6 +15,6 @@ class PlaylistManager {
   }
 
   getPlaylistByIndex(int index) {
-    playlists.elementAt(index).playlist;
+    return playlists.elementAt(index);
   }
 }

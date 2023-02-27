@@ -2,7 +2,8 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:media_player/controllers/music_controller.dart';
+import 'package:media_player/controllers/music_manager.dart';
+import 'package:media_player/controllers/player_controller.dart';
 import 'package:media_player/controllers/route_manager.dart';
 import 'package:media_player/models/profile.dart';
 import 'package:media_player/screens/config_screen.dart';
@@ -17,7 +18,8 @@ Future<void> main(List<String> args) async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => Profile()),
-      ChangeNotifierProvider(create: (_) => MusicController()),
+      ChangeNotifierProvider(create: (_) => PlayerController()),
+      ChangeNotifierProvider(create: (_) => MusicManager()),
     ],
     child: const MyApp(),
   ));
